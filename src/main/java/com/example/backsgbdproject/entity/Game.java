@@ -17,5 +17,11 @@ public class Game {
 
     private String description;
 
+    private String genre;
+
+    private String subgenre;
+
+    private String company;
+
     private double price;
 }

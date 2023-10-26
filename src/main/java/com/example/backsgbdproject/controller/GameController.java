@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/apis/")
+@RequestMapping("/apis/game")
 public class GameController {
 
     @Autowired
@@ -20,5 +20,14 @@ public class GameController {
     @PostMapping("/insert")
     Game insertGame(@RequestBody Game game){
         return gameService.insertGame(game);
+    }
+
+    @PutMapping("/update")
+    Game updateGame(@RequestBody Game game){
+        return gameService.updateGame(game, game.getId());
+    }
+    @DeleteMapping("/delete/{id}")
+    void deleteGame(@PathVariable int id){
+        gameService.deleteGame(id);
     }
 }

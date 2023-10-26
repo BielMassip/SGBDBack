@@ -21,7 +21,13 @@ public class GameService {
 
     public Game updateGame(Game game, int id){
         Game game1 = gameRepo.findById(id).get();
+        game1.setName(game.getName());
+        game1.setDescription(game.getDescription());
+        game1.setGenre(game.getGenre());
+        game1.setCompany(game.getCompany());
+        game1.setSubgenre(game.getSubgenre());
         game1.setPrice(game.getPrice());
+        gameRepo.save(game1);
         return game1;
     }
 
