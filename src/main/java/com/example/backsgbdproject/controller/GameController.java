@@ -5,8 +5,12 @@ import com.example.backsgbdproject.service.GameService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @RestController
 @RequestMapping("/apis/game")
+@CrossOrigin(origins = "http://localhost:4200")
 public class GameController {
 
     @Autowired
