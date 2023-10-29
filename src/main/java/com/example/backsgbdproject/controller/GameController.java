@@ -5,8 +5,7 @@ import com.example.backsgbdproject.service.GameService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/apis/game")
@@ -20,6 +19,9 @@ public class GameController {
     Iterable<Game> findAll(){
         return gameService.getGames();
     }
+
+    @GetMapping("/findById/{id}")
+    Optional<Game> findById(@PathVariable int id) {  return gameService.getGameById(id); }
 
     @PostMapping("/insert")
     Game insertGame(@RequestBody Game game){

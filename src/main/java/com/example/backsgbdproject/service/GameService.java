@@ -5,6 +5,8 @@ import com.example.backsgbdproject.repository.GameRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class GameService {
 
@@ -14,6 +16,8 @@ public class GameService {
     public Iterable<Game> getGames(){
         return gameRepo.findAll();
     }
+
+    public Optional<Game> getGameById(int id){ return gameRepo.findById(id);}
 
     public Game insertGame(Game game){
         return gameRepo.save(game);
