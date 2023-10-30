@@ -1,15 +1,24 @@
 package com.example.backsgbdproject.service;
 
+import co.elastic.clients.elasticsearch.core.SearchRequest;
+import co.elastic.clients.elasticsearch.core.SearchResponse;
+import com.example.backsgbdproject.entity.Game;
 import com.example.backsgbdproject.entity.Review;
 import com.example.backsgbdproject.repository.ReviewRepo;
+import org.elasticsearch.client.RequestOptions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @Service
 public class ReviewService {
 
     @Autowired
     private ReviewRepo reviewRepo;
+    @Autowired
+    private GameService gameService;
 
     public Iterable<Review> getReviews(){
         return reviewRepo.findAll();
