@@ -24,13 +24,17 @@ public class Game {
 
     private String name;
 
-    private String description;
+    private String company;
 
     private String genre;
 
     private String subgenre;
 
-    private String company;
+    private String description;
+
+    private int rating;
+
+    private String img;
 
     private double price;
 
@@ -46,6 +50,8 @@ public class Game {
                 ", genre='" + genre + '\'' +
                 ", subgenre='" + subgenre + '\'' +
                 ", company='" + company + '\'' +
+                ", rating=" + rating +
+                ", img='" + img + '\'' +
                 ", price=" + price +
                 // Omitting reviews here to avoid circular reference
                 '}';
