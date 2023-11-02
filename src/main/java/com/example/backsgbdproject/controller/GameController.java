@@ -56,4 +56,9 @@ public class GameController {
     void deleteGame(@PathVariable int id){
         gameService.deleteGame(id);
     }
+
+    @GetMapping("/findByGenre/{genre}")
+    public List<Game> findByGenre(@PathVariable String genre) {
+        return gameService.findByGenre(genre);
+    }
 }

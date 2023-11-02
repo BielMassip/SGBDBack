@@ -7,6 +7,7 @@ import com.example.backsgbdproject.repository.ReviewRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -22,6 +23,10 @@ public class GameService {
     }
 
     public Optional<Game> getGameById(int id){ return gameRepo.findById(id);}
+
+    public List<Game> findByGenre(String genre) {
+        return gameRepo.findByGenre(genre);
+    }
 
     public Iterable<Review> getGameReviews(long id){
         return gameRepo.findById((int) id).get().getReviews();
