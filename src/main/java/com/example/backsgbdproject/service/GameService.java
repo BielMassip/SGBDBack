@@ -54,7 +54,6 @@ public class GameService {
         game1.setDescription(game.getDescription());
         game1.setGenre(game.getGenre());
         game1.setCompany(game.getCompany());
-        game1.setSubgenre(game.getSubgenre());
         game1.setPrice(game.getPrice());
         gameRepo.save(game1);
         return game1;

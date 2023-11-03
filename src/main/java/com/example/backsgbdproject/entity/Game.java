@@ -26,9 +26,7 @@ public class Game {
 
     private String company;
 
-    private String genre;
-
-    private String subgenre;
+    private List<String> genre;
 
     private String description;
 
@@ -48,7 +46,6 @@ public class Game {
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
                 ", genre='" + genre + '\'' +
-                ", subgenre='" + subgenre + '\'' +
                 ", company='" + company + '\'' +
                 ", rating=" + rating +
                 ", img='" + img + '\'' +
