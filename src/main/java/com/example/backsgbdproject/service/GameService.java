@@ -5,10 +5,13 @@ import com.example.backsgbdproject.entity.Review;
 import com.example.backsgbdproject.repository.GameRepo;
 import com.example.backsgbdproject.repository.ReviewRepo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.elasticsearch.core.SearchHit;
+import org.springframework.data.elasticsearch.core.SearchHits;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class GameService {
@@ -63,5 +66,21 @@ public class GameService {
         gameRepo.deleteById(id);
     }
 
+    public List<Game> searchGames(String field, String value) {
+        switch (field.toLowerCase()) {
+            case "name":
+                return gameRepo.findByName(value);
+            case "company":
+                return gameRepo.findByCompany(value);
+            case "genre":
+                return gameRepo.findByGenre(value);
+            case "rating":
+                return gameRepo.findByRatingGreaterThanEqual(Integer.parseInt(value));
+            case "price":
+                return gameRepo.findByPriceLessThanEqual(Double.parseDouble(value));
+            default:
+                return null;
+        }
+    }
 }
 
