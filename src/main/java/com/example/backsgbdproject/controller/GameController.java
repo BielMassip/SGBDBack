@@ -61,4 +61,9 @@ public class GameController {
     public List<Game> findByGenre(@PathVariable String genre) {
         return gameService.findByGenre(genre);
     }
+
+    @GetMapping("/search")
+    public List<Game> searchGames(@RequestParam String field, @RequestParam String value) {
+        return gameService.searchGames(field, value);
+    }
 }
