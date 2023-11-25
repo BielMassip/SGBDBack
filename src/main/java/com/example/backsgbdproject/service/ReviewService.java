@@ -17,8 +17,6 @@ public class ReviewService {
 
     @Autowired
     private ReviewRepo reviewRepo;
-    @Autowired
-    private GameService gameService;
 
     public Iterable<Review> getReviews(){
         return reviewRepo.findAll();
@@ -28,7 +26,7 @@ public class ReviewService {
         return reviewRepo.save(review);
     }
 
-    public Review updateReview(Review review, int id){
+    public Review updateReview(Review review, String id){
         Review review1 = reviewRepo.findById(id).get();
         review1.setComment(review.getComment());
         review1.setRating(review.getRating());
@@ -37,7 +35,7 @@ public class ReviewService {
         return review1;
     }
 
-    public void deleteReview(int id){
+    public void deleteReview(String id){
         reviewRepo.deleteById(id);
     }
 }

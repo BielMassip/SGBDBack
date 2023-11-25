@@ -14,13 +14,13 @@ import javax.persistence.*;
 public class Review {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private String id;
 
     private String author;
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "game_id")
-    private Long gameId;
+    private String gameId;
 
     private String comment;
 

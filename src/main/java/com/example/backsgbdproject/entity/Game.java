@@ -18,9 +18,18 @@ import java.util.List;
 @Data
 @Document(indexName = "games")
 public class Game {
+    public Game (String name, String company, List<String> genre, String description, double price, String img){
+        this.name = name;
+        this.company = company;
+        this.genre = genre;
+        this.description = description;
+        this.price = price;
+        this.img = img;
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private String id;
 
     private String name;
 
