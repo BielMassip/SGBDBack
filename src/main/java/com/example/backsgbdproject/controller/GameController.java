@@ -4,6 +4,7 @@ import com.example.backsgbdproject.entity.Game;
 import com.example.backsgbdproject.entity.Review;
 import com.example.backsgbdproject.service.GameNotFoundException;
 import com.example.backsgbdproject.service.GameService;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,20 +22,18 @@ public class GameController {
     private GameService gameService;
 
     @GetMapping("/findAll")
-    Iterable<Game> findAll(){
-        return gameService.getGames();
-    }
+    Iterable<Game> findAll(){ return gameService.getGames(); }
 
     @GetMapping("/findById/{id}")
-    Optional<Game> findById(@PathVariable int id) {  return gameService.getGameById(id); }
+    Optional<Game> findById(@PathVariable String id) {  return gameService.getGameById(id); }
 
     @GetMapping("/findAllReviewsByGameId/{game_id}")
-    Iterable<Review> findAllReviewsByGameId(@PathVariable long game_id){
+    Iterable<Review> findAllReviewsByGameId(@PathVariable String game_id){
         return gameService.getGameReviews(game_id);
     }
 
     @PostMapping("/addGameReview/{game_id}")
-    ResponseEntity<String> addGameReview(@RequestBody Review review,@PathVariable int game_id) throws GameNotFoundException {
+    ResponseEntity<String> addGameReview(@RequestBody Review review,@PathVariable String game_id) throws GameNotFoundException {
         try {
             gameService.addReviewToGame(game_id, review);
             return new ResponseEntity<>("Review added successfully", HttpStatus.CREATED);
@@ -53,7 +52,7 @@ public class GameController {
         return gameService.updateGame(game, game.getId());
     }
     @DeleteMapping("/delete/{id}")
-    void deleteGame(@PathVariable int id){
+    void deleteGame(@PathVariable String id){
         gameService.deleteGame(id);
     }
 
@@ -65,5 +64,11 @@ public class GameController {
     @GetMapping("/search")
     public List<Game> searchGames(@RequestParam String field, @RequestParam String value) {
         return gameService.searchGames(field, value);
+    }
+
+    @GetMapping(path="/carregarBD")
+    public String register() {
+        gameService.carregarBD();
+        return BaseController.OK_MESSAGE;
     }
 }
