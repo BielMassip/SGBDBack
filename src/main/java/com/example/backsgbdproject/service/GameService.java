@@ -6,14 +6,12 @@ import com.example.backsgbdproject.entity.Review;
 import com.example.backsgbdproject.repository.GameRepo;
 import com.example.backsgbdproject.repository.ReviewRepo;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.elasticsearch.core.SearchHit;
-import org.springframework.data.elasticsearch.core.SearchHits;
 import org.springframework.stereotype.Service;
-
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
+
 
 @Service
 public class GameService {
@@ -86,21 +84,32 @@ public class GameService {
 
     public void deleteGame(String id){ gameRepo.deleteById(id); }
 
-    public List<Game> searchGames(String field, String value) {
-        switch (field.toLowerCase()) {
-            case "name":
-                return gameRepo.findByName(value);
-            case "company":
-                return gameRepo.findByCompany(value);
-            case "genre":
-                return gameRepo.findByGenre(value);
-            case "rating":
-                return gameRepo.findByRatingGreaterThanEqual(Integer.parseInt(value));
-            case "price":
-                return gameRepo.findByPriceLessThanEqual(Double.parseDouble(value));
-            default:
-                return null;
+    public List<Game> searchGames(String company, int rating, double price) {
+        List<Game> games = new ArrayList<>();
+
+        if (company != null && !company.isEmpty()) {
+            games = gameRepo.findByCompany(company);
         }
+
+        if (rating > 0) {
+            List<Game> ratingGames = gameRepo.findByRatingGreaterThanEqual(rating);
+            if (!games.isEmpty()) {
+                games.retainAll(ratingGames);
+            } else {
+                games = ratingGames;
+            }
+        }
+
+        if (price > 0) {
+            List<Game> priceGames = gameRepo.findByPriceLessThanEqual(price);
+            if (!games.isEmpty()) {
+                games.retainAll(priceGames);
+            } else {
+                games = priceGames;
+            }
+        }
+
+        return games;
     }
 }
 
