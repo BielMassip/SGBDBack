@@ -5,6 +5,7 @@ import com.example.backsgbdproject.entity.Review;
 import com.example.backsgbdproject.service.GameNotFoundException;
 import com.example.backsgbdproject.service.GameService;
 import jakarta.servlet.http.HttpSession;
+import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -31,7 +32,11 @@ public class GameController {
     Iterable<Review> findAllReviewsByGameId(@PathVariable String game_id){
         return gameService.getGameReviews(game_id);
     }
-
+    @PutMapping("/setGameRating/{game_id}")
+    ResponseEntity<String> setGameRating(@RequestParam int rating, @PathVariable String game_id){
+        gameService.setGameRating(game_id, rating);
+        return new ResponseEntity<>("Rating set successfully", HttpStatus.CREATED);
+    }
     @PostMapping("/addGameReview/{game_id}")
     ResponseEntity<String> addGameReview(@RequestBody Review review,@PathVariable String game_id) throws GameNotFoundException {
         try {

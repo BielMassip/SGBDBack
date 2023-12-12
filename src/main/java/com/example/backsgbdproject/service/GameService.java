@@ -102,5 +102,11 @@ public class GameService {
                 return null;
         }
     }
+
+    public void setGameRating(String game_id, int rating) {
+        Game game1 = gameRepo.findById(game_id).get();
+        game1.setRating(rating);
+        gameRepo.save(game1);
+    }
 }
 
