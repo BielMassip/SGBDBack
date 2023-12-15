@@ -21,4 +21,5 @@ public interface GameRepo extends ElasticsearchRepository<Game, String> {
     List<Game> findByPriceLessThanEqual(double price);
 
     Optional<Game> findById(String id);
+
 }
