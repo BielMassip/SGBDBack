@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -64,10 +65,11 @@ public class GameController {
 
     @GetMapping("/search")
     public List<Game> searchGames(@RequestParam Map<String, String> params) {
+        String name = params.get("name");
         String company = params.get("company");
         int rating = Integer.parseInt(params.get("rating"));
         double price = Double.parseDouble(params.get("price"));
-        return gameService.searchGames(company, rating, price);
+        return gameService.searchGames(company,rating, price,name);
     }
 
     @GetMapping(path="/carregarBD")
@@ -75,4 +77,6 @@ public class GameController {
         gameService.carregarBD();
         return BaseController.OK_MESSAGE;
     }
+
+
 }
