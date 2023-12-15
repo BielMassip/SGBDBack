@@ -98,31 +98,34 @@ public class GameService {
 
     public List<Game> searchGames(String company, int rating, double price, String name) {
         List<Game> games = new ArrayList<>();
+        boolean retornaBuida = false;
 
         if (name != null && !name.isEmpty()) {
             games = this.searchGamesByParam(name);
+            if (games.isEmpty()) retornaBuida= true;
         }
 
-
-        if (company != null && !company.isEmpty()) {
+        if (company != null && !company.isEmpty() && !retornaBuida) {
             List<Game> companyGames = gameRepo.findByCompany(company);
             if (!games.isEmpty()) {
                 games.retainAll(companyGames);
             } else {
                 games = companyGames;
             }
+            if (games.isEmpty()) retornaBuida= true;
         }
 
-        if (rating > 0) {
+        if (rating > 0 && !retornaBuida) {
             List<Game> ratingGames = gameRepo.findByRatingGreaterThanEqual(rating);
             if (!games.isEmpty()) {
                 games.retainAll(ratingGames);
             } else {
                 games = ratingGames;
             }
+            if (games.isEmpty()) retornaBuida= true;
         }
 
-        if (price > 0) {
+        if (price > 0 && !retornaBuida) {
             List<Game> priceGames = gameRepo.findByPriceLessThanEqual(price);
             if (!games.isEmpty()) {
                 games.retainAll(priceGames);
